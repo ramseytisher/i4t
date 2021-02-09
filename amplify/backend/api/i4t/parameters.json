@@ -1,5 +1,0 @@
-{
-  "AppSyncApiName": "i4t",
-  "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false
-}
