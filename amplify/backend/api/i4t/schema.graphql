@@ -1,0 +1,6 @@
+type Stock @model {
+  id: ID!
+  symbol: String!
+  description: String
+  eps: String
+}
