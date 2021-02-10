@@ -87,17 +87,6 @@ const IndexPage = () => {
         <Box pad="large">
           <Grid columns="medium" gap="medium">
             {stocks.map((stock) => (
-              // <div>
-              //   <div>
-              //     <pre>{JSON.stringify(stock, null, 2)}</pre>
-              //   </div>
-              //   <button onClick={() => setSymbol(stock.symbol)}>
-              //     Get Details
-              //   </button>
-              //   <button onClick={() => deleteStock(stock.id)}>
-              //     Delete: {stock.symbol}
-              //   </button>
-              // </div>
               <StockCard stock={stock} remove={deleteStock} key={stock.id} />
             ))}
           </Grid>
