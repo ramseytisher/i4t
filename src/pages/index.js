@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
-import Amplify, { Auth, API, graphqlOperation } from "aws-amplify";
-import { AmplifyAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
+import { API, graphqlOperation } from "aws-amplify";
+import { Box, Grid, Form, FormField, Button, TextInput } from "grommet";
 
 import {
   addStock as AddStock,
   deleteStock as DeleteStock,
 } from "../graphql/mutations";
 import { listStocks as ListStocks } from "../graphql/queries";
+
+import Layout from "../components/layout";
+import StockCard from "../components/stock-card";
 
 // markup
 const IndexPage = () => {
@@ -37,6 +40,7 @@ const IndexPage = () => {
         })
       );
       setStocks([...stocks, temp.data.addStock]);
+      setSearch("");
     } catch (err) {
       console.log("error creating stock", err);
     }
@@ -52,6 +56,7 @@ const IndexPage = () => {
           },
         })
       );
+      console.log("Deleted: ", deleteItem);
       setStocks(stocks.filter((stock) => stock.id !== id));
     } catch (err) {
       console.log("error deleting stock: ", err);
@@ -59,74 +64,47 @@ const IndexPage = () => {
   }
 
   return (
-    <div style={styles.container}>
-      <h2>i4t</h2>
-      <AmplifyAuthenticator>
-        <AmplifySignOut />
-        <form
-          onSubmit={(e) => {
-            createStock(search);
-            setSearch("");
-            e.preventDefault();
-          }}
-        >
-          <label>
-            Add stock:
-            <input
-              type="text"
-              name="symbol"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </label>
-          <input type="submit" value="Add" />
-        </form>
-        <div>
-          {stocks.map((stock) => (
-            <div>
-              <div>
-                <pre>{JSON.stringify(stock, null, 2)}</pre>
-              </div>
-              <button onClick={() => setSymbol(stock.symbol)}>
-                Get Details
-              </button>
-              <button onClick={() => deleteStock(stock.id)}>
-                Delete: {stock.symbol}
-              </button>
-            </div>
-          ))}
-        </div>
-      </AmplifyAuthenticator>
-    </div>
+    <Layout>
+      <div>
+        <Box align="center">
+          <Form
+            value={search}
+            onChange={({ symbol }) => setSearch(symbol)}
+            onReset={() => setSearch("")}
+            onSubmit={({ value }) => {
+              createStock(search);
+            }}
+          >
+            <FormField name="symbol" htmlFor="text-input-id" label="Symbol">
+              <TextInput id="text-input-id" name="symbol" value={search} />
+            </FormField>
+            <Box direction="row" gap="medium">
+              <Button type="submit" primary label="Submit" />
+              <Button type="reset" label="Reset" />
+            </Box>
+          </Form>
+        </Box>
+        <Box pad="large">
+          <Grid columns="medium" gap="medium">
+            {stocks.map((stock) => (
+              // <div>
+              //   <div>
+              //     <pre>{JSON.stringify(stock, null, 2)}</pre>
+              //   </div>
+              //   <button onClick={() => setSymbol(stock.symbol)}>
+              //     Get Details
+              //   </button>
+              //   <button onClick={() => deleteStock(stock.id)}>
+              //     Delete: {stock.symbol}
+              //   </button>
+              // </div>
+              <StockCard stock={stock} remove={deleteStock} key={stock.id} />
+            ))}
+          </Grid>
+        </Box>
+      </div>
+    </Layout>
   );
-};
-
-const styles = {
-  container: {
-    width: 400,
-    margin: "0 auto",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    padding: 20,
-  },
-  todo: { marginBottom: 15 },
-  input: {
-    border: "none",
-    backgroundColor: "#ddd",
-    marginBottom: 10,
-    padding: 8,
-    fontSize: 18,
-  },
-  todoName: { fontSize: 20, fontWeight: "bold" },
-  todoDescription: { marginBottom: 0 },
-  button: {
-    backgroundColor: "black",
-    color: "white",
-    outline: "none",
-    fontSize: 18,
-    padding: "12px 0px",
-  },
 };
 
 export default IndexPage;
