@@ -1,6 +1,18 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const addStock = /* GraphQL */ `
+  mutation AddStock($symbol: String) {
+    addStock(symbol: $symbol) {
+      id
+      symbol
+      description
+      eps
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const createStock = /* GraphQL */ `
   mutation CreateStock(
     $input: CreateStockInput!

@@ -4,3 +4,7 @@ type Stock @model {
   description: String
   eps: String
 }
+
+type Mutation {
+  addStock(symbol: String): Stock! @function(name: "addStock-${env}")
+}

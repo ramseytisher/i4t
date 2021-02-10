@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "api": {
+      "i4t": [
+        "create",
+        "read",
+        "update"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}
