@@ -4,6 +4,7 @@ import { Box, Grid, Form, FormField, Button, TextInput } from "grommet";
 
 import {
   addStock as AddStock,
+  updateStockData as UpdateStockData,
   deleteStock as DeleteStock,
 } from "../graphql/mutations";
 import { listStocks as ListStocks } from "../graphql/queries";
@@ -43,6 +44,24 @@ const IndexPage = () => {
       setSearch("");
     } catch (err) {
       console.log("error creating stock", err);
+    }
+  }
+
+  async function updateStockData(id) {
+    try {
+      const update = await API.graphql(
+        graphqlOperation(UpdateStockData, {
+          id: id,
+        })
+      );
+      const stockIndex = stocks.findIndex(
+        (e) => e.id === update.data.updateStockData.id
+      );
+      let newStocks = [...stocks];
+      newStocks[stockIndex] = update.data.updateStockData;
+      setStocks(newStocks)
+    } catch (err) {
+      console.log("error updating stock", err);
     }
   }
 
@@ -87,7 +106,12 @@ const IndexPage = () => {
         <Box pad="large">
           <Grid columns="medium" gap="medium">
             {stocks.map((stock) => (
-              <StockCard stock={stock} remove={deleteStock} key={stock.id} />
+              <StockCard
+                stock={stock}
+                remove={deleteStock}
+                update={updateStockData}
+                key={stock.id}
+              />
             ))}
           </Grid>
         </Box>

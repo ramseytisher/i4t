@@ -2,9 +2,10 @@ type Stock @model {
   id: ID!
   symbol: String!
   description: String
-  eps: String
+  overview: String
 }
 
 type Mutation {
   addStock(symbol: String): Stock! @function(name: "addStock-${env}")
+  updateStockData(id: String): Stock! @function(name: "updateStockData-${env}")
 }

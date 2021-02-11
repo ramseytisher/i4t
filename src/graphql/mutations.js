@@ -7,7 +7,19 @@ export const addStock = /* GraphQL */ `
       id
       symbol
       description
-      eps
+      overview
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateStockData = /* GraphQL */ `
+  mutation UpdateStockData($id: String) {
+    updateStockData(id: $id) {
+      id
+      symbol
+      description
+      overview
       createdAt
       updatedAt
     }
@@ -22,7 +34,7 @@ export const createStock = /* GraphQL */ `
       id
       symbol
       description
-      eps
+      overview
       createdAt
       updatedAt
     }
@@ -37,7 +49,7 @@ export const updateStock = /* GraphQL */ `
       id
       symbol
       description
-      eps
+      overview
       createdAt
       updatedAt
     }
@@ -52,7 +64,7 @@ export const deleteStock = /* GraphQL */ `
       id
       symbol
       description
-      eps
+      overview
       createdAt
       updatedAt
     }

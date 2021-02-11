@@ -1,6 +1,6 @@
 projects:
   i4t:
-    schemaPath: src/graphql/schema.json
+    schemaPath: amplify/backend/api/i4t/build/schema.graphql
     includes:
       - src/graphql/**/*.js
     excludes:

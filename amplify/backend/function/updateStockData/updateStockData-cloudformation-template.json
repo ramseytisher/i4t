@@ -45,12 +45,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "addStock",
+            "updateStockData",
             {
               "Fn::Join": [
                 "",
                 [
-                  "addStock",
+                  "updateStockData",
                   "-",
                   {
                     "Ref": "env"
@@ -90,7 +90,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-i4t-dev-164423-deployment",
-          "S3Key": "amplify-builds/addStock-424a61716a4a704e4f37-build.zip"
+          "S3Key": "amplify-builds/updateStockData-5545466555356c723468-build.zip"
         }
       }
     },
@@ -100,12 +100,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "i4tLambdaRolec1ce1616",
+            "i4tLambdaRole6263553f",
             {
               "Fn::Join": [
                 "",
                 [
-                  "i4tLambdaRolec1ce1616",
+                  "i4tLambdaRole6263553f",
                   "-",
                   {
                     "Ref": "env"
@@ -194,9 +194,6 @@
             {
               "Effect": "Allow",
               "Action": [
-                "appsync:Create*",
-                "appsync:StartSchemaCreation",
-                "appsync:GraphQL",
                 "appsync:Get*",
                 "appsync:List*",
                 "appsync:Update*"
