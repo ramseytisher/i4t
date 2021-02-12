@@ -6,8 +6,13 @@ export const getStock = /* GraphQL */ `
     getStock(id: $id) {
       id
       symbol
+      sector
+      employees
+      marketCap
       description
-      overview
+      peratio
+      dividendYield
+      beta
       createdAt
       updatedAt
     }
@@ -23,8 +28,13 @@ export const listStocks = /* GraphQL */ `
       items {
         id
         symbol
+        sector
+        employees
+        marketCap
         description
-        overview
+        peratio
+        dividendYield
+        beta
         createdAt
         updatedAt
       }

@@ -23,15 +23,15 @@ const StockCard = ({ stock, remove, update }) => {
         </Box>
       </CardHeader>
       <CardBody pad="medium">
-        <Code size="large" />
+        <pre>{JSON.stringify(stock, null, 2)}</pre>
       </CardBody>
       <CardFooter pad="small" background="light-2">
+        <Text size="small">Last Updated: {stock.updatedAt}</Text>
         <Button
           icon={<Trash />}
           hoverIndicator
           onClick={() => remove(stock.id)}
         />
-        <Text size="small">Last Updated: {stock.updatedAt}</Text>
         <Button
           icon={<Update />}
           hoverIndicator

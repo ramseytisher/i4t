@@ -1,8 +1,13 @@
 type Stock @model {
   id: ID!
   symbol: String!
+  sector: String
+  employees: String
+  marketCap: String
   description: String
-  overview: String
+  peratio: String
+  dividendYield: String
+  beta: String
 }
 
 type Mutation {

@@ -6,8 +6,13 @@ export const onCreateStock = /* GraphQL */ `
     onCreateStock {
       id
       symbol
+      sector
+      employees
+      marketCap
       description
-      overview
+      peratio
+      dividendYield
+      beta
       createdAt
       updatedAt
     }
@@ -18,8 +23,13 @@ export const onUpdateStock = /* GraphQL */ `
     onUpdateStock {
       id
       symbol
+      sector
+      employees
+      marketCap
       description
-      overview
+      peratio
+      dividendYield
+      beta
       createdAt
       updatedAt
     }
@@ -30,8 +40,13 @@ export const onDeleteStock = /* GraphQL */ `
     onDeleteStock {
       id
       symbol
+      sector
+      employees
+      marketCap
       description
-      overview
+      peratio
+      dividendYield
+      beta
       createdAt
       updatedAt
     }

@@ -16,7 +16,15 @@ const createStock = gql`
     createStock(input: $input) {
       id
       symbol
-      overview
+      sector
+      employees
+      marketCap
+      description
+      peratio
+      dividendYield
+      beta
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -68,7 +76,7 @@ exports.handler = async (event) => {
             input: {
               symbol: event.arguments.symbol,
               description: stockData.data.Name,
-              overview: JSON.stringify(stockData.data)
+              peratio: stockData.data.PERatio,
             },
           },
         },

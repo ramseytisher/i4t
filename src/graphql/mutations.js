@@ -6,8 +6,13 @@ export const addStock = /* GraphQL */ `
     addStock(symbol: $symbol) {
       id
       symbol
+      sector
+      employees
+      marketCap
       description
-      overview
+      peratio
+      dividendYield
+      beta
       createdAt
       updatedAt
     }
@@ -18,8 +23,13 @@ export const updateStockData = /* GraphQL */ `
     updateStockData(id: $id) {
       id
       symbol
+      sector
+      employees
+      marketCap
       description
-      overview
+      peratio
+      dividendYield
+      beta
       createdAt
       updatedAt
     }
@@ -33,8 +43,13 @@ export const createStock = /* GraphQL */ `
     createStock(input: $input, condition: $condition) {
       id
       symbol
+      sector
+      employees
+      marketCap
       description
-      overview
+      peratio
+      dividendYield
+      beta
       createdAt
       updatedAt
     }
@@ -48,8 +63,13 @@ export const updateStock = /* GraphQL */ `
     updateStock(input: $input, condition: $condition) {
       id
       symbol
+      sector
+      employees
+      marketCap
       description
-      overview
+      peratio
+      dividendYield
+      beta
       createdAt
       updatedAt
     }
@@ -63,8 +83,13 @@ export const deleteStock = /* GraphQL */ `
     deleteStock(input: $input, condition: $condition) {
       id
       symbol
+      sector
+      employees
+      marketCap
       description
-      overview
+      peratio
+      dividendYield
+      beta
       createdAt
       updatedAt
     }

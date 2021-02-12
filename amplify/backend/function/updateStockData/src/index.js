@@ -15,9 +15,14 @@ const updateStock = gql`
   mutation updateStock($input: UpdateStockInput!) {
     updateStock(input: $input) {
       id
-      overview
       symbol
+      sector
+      employees
+      marketCap
       description
+      peratio
+      dividendYield
+      beta
       createdAt
       updatedAt
     }
@@ -33,7 +38,6 @@ const getStock = gql`
 `;
 
 exports.handler = async (event) => {
-  console.log("ID is: ", event.arguments.id);
   try {
     const symbol = await axios({
       url: process.env.API_I4T_GRAPHQLAPIENDPOINTOUTPUT,
@@ -66,14 +70,19 @@ exports.handler = async (event) => {
           variables: {
             input: {
               id: event.arguments.id,
-              overview: JSON.stringify(overviewData.data),
+              sector: overviewData.data.Sector,
+              employees: overviewData.data.FullTimeEmployees,
+              marketCap: overviewData.data.MarketCapitalization,
+              peratio: overviewData.data.PERatio,
+              dividendYield: overviewData.data.DividendYield,
+              beta: overviewData.data.Beta,
             },
           },
         },
       });
-      return update.data.data.updateStock
+      return update.data.data.updateStock;
     } else {
-      return "Unable to find stock data ... "
+      return "Unable to find stock data ... ";
     }
   } catch (err) {
     return "Error updating stock ...";
