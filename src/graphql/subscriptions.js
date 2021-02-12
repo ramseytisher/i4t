@@ -13,6 +13,11 @@ export const onCreateStock = /* GraphQL */ `
       peratio
       dividendYield
       beta
+      quote {
+        price
+        volume
+        date
+      }
       createdAt
       updatedAt
     }
@@ -30,6 +35,11 @@ export const onUpdateStock = /* GraphQL */ `
       peratio
       dividendYield
       beta
+      quote {
+        price
+        volume
+        date
+      }
       createdAt
       updatedAt
     }
@@ -47,6 +57,11 @@ export const onDeleteStock = /* GraphQL */ `
       peratio
       dividendYield
       beta
+      quote {
+        price
+        volume
+        date
+      }
       createdAt
       updatedAt
     }

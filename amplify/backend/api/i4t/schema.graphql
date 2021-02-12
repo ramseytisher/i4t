@@ -8,6 +8,13 @@ type Stock @model {
   peratio: String
   dividendYield: String
   beta: String
+  quote: Quote
+}
+
+type Quote {
+  price: String
+  volume: String
+  date: String
 }
 
 type Mutation {

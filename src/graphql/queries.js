@@ -13,6 +13,11 @@ export const getStock = /* GraphQL */ `
       peratio
       dividendYield
       beta
+      quote {
+        price
+        volume
+        date
+      }
       createdAt
       updatedAt
     }
@@ -35,6 +40,11 @@ export const listStocks = /* GraphQL */ `
         peratio
         dividendYield
         beta
+        quote {
+          price
+          volume
+          date
+        }
         createdAt
         updatedAt
       }

@@ -11,19 +11,35 @@ import {
 } from "grommet";
 import { Trash, DocumentTest, Update, Code } from "grommet-icons";
 
+const formatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  minimumFractionDigits: 2,
+});
+
 const StockCard = ({ stock, remove, update }) => {
   const [show, setShow] = useState(null);
 
   return (
     <Card>
       <CardHeader pad="small" background="light-2">
-        <Box direction="row" gap="small">
+        <Box fill direction="row" gap="small" align="center" justify="between">
           <Text weight="bold">{stock.symbol}</Text>
-          <Text>{stock.description}</Text>
+          <Text truncate>{stock.description}</Text>
+          {stock.quote && (
+            <Button
+              color="accent-1"
+              label={formatter.format(stock.quote.price)}
+              onClick={() => setShow(stock)}
+            />
+          )}
         </Box>
       </CardHeader>
       <CardBody pad="medium">
-        <pre>{JSON.stringify(stock, null, 2)}</pre>
+        <Text> Market Cap: {formatter.format(stock.marketCap)}</Text>
+        <Text> Employees: {stock.employees}</Text>
+        <Text> PE Ratio: {stock.peratio}</Text>
+        <Text> Dividend Yield: {`${stock.dividendYield}%`}</Text>
       </CardBody>
       <CardFooter pad="small" background="light-2">
         <Text size="small">Last Updated: {stock.updatedAt}</Text>
@@ -37,16 +53,11 @@ const StockCard = ({ stock, remove, update }) => {
           hoverIndicator
           onClick={() => update(stock.id)}
         />
-        <Button
-          icon={<DocumentTest />}
-          hoverIndicator
-          onClick={() => setShow(stock)}
-        />
       </CardFooter>
       {show && (
         <Layer onEsc={() => setShow(null)} onClickOutside={() => setShow(null)}>
           <Box pad="medium">
-            <pre>{stock.overview}</pre>
+            <pre>{JSON.stringify(stock, null, 2)}</pre>
             <Button label="close" onClick={() => setShow(null)} />
           </Box>
         </Layer>

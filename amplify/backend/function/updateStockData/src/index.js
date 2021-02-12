@@ -25,6 +25,11 @@ const updateStock = gql`
       beta
       createdAt
       updatedAt
+      quote {
+          price
+          date
+          volume
+      }
     }
   }
 `;
@@ -36,6 +41,22 @@ const getStock = gql`
     }
   }
 `;
+
+const formatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  minimumFractionDigits: 2,
+});
+
+function processQuoteData(o) {
+  return Object.entries(o)
+    .map(([key, value]) => [key.replace(/\s+/g, ""), value])
+    .reduce((result, [normalizedKey, value]) => {
+      result[normalizedKey] =
+        value && typeof value === "object" ? processQuoteData(value) : value;
+      return result;
+    }, {});
+}
 
 exports.handler = async (event) => {
   try {
@@ -58,6 +79,11 @@ exports.handler = async (event) => {
       url: `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${symbol.data.data.getStock.symbol}&apikey=6GUGOE51J9KLH0O2`,
     });
 
+    let quoteData = await axios({
+      method: "get",
+      url: `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol.data.data.getStock.symbol}&apikey=6GUGOE51J9KLH0O2`,
+    });
+
     if (overviewData) {
       const update = await axios({
         url: process.env.API_I4T_GRAPHQLAPIENDPOINTOUTPUT,
@@ -76,6 +102,11 @@ exports.handler = async (event) => {
               peratio: overviewData.data.PERatio,
               dividendYield: overviewData.data.DividendYield,
               beta: overviewData.data.Beta,
+              quote: {
+                  price: processQuoteData(quoteData.data).GlobalQuote["05.price"],
+                  volume: processQuoteData(quoteData.data).GlobalQuote["06.volume"],
+                  date: processQuoteData(quoteData.data).GlobalQuote["07.latesttradingday"],
+              }
             },
           },
         },
@@ -85,6 +116,7 @@ exports.handler = async (event) => {
       return "Unable to find stock data ... ";
     }
   } catch (err) {
+    console.log("We got an error: ", err);
     return "Error updating stock ...";
   }
 };
