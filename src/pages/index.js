@@ -81,11 +81,11 @@ const IndexPage = () => {
 
   return (
     <Layout>
-      <Box direction="row-responsive">
+      <Box direction="row-responsive" gap="small">
         <Box>
           <StockSearch createStock={createStock} />
         </Box>
-        <Box fill pad="small">
+        <Box fill>
           <Grid columns="medium" gap="medium">
             {stocks.map((stock) => (
               <StockCard

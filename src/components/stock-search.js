@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { graphql, useStaticQuery } from "gatsby";
+
 import { Box, Button, Layer, DataTable, TextInput } from "grommet";
 import { Add, LinkPrevious, Search } from "grommet-icons";
 
-const StockSearch = ({ createStock }) => {
+const StockSearch = ({createStock}) => {
   const stockListings = useStaticQuery(graphql`
     query {
       allStockListingCsv {
@@ -39,7 +40,15 @@ const StockSearch = ({ createStock }) => {
 
   return (
     <>
-      <Button icon={<Add />} onClick={() => setShow(true)} />
+      <Box>
+        <Button
+          primary
+          color="accent-1"
+          icon={<Add />}
+          onClick={() => setShow(true)}
+          alignSelf="center"
+        />
+      </Box>
       {show && (
         <Layer
           onEsc={() => setShow(false)}
@@ -60,6 +69,7 @@ const StockSearch = ({ createStock }) => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 icon={<Search />}
+                placeholder="Find a stock ..."
                 reverse
               />
             </Box>
