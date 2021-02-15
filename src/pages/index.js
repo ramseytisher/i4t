@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { API, graphqlOperation } from "aws-amplify";
-import { Box, Grid, Form, FormField, Button, TextInput } from "grommet";
+import { Box, Grid } from "grommet";
 
 import {
   addStock as AddStock,
@@ -11,11 +11,10 @@ import { listStocks as ListStocks } from "../graphql/queries";
 
 import Layout from "../components/layout";
 import StockCard from "../components/stock-card";
+import StockSearch from "../components/stock-search";
 
 // markup
 const IndexPage = () => {
-  const [symbol, setSymbol] = useState("CERN");
-  const [search, setSearch] = useState("");
   const [stocks, setStocks] = useState([]);
 
   useEffect(() => {
@@ -32,16 +31,14 @@ const IndexPage = () => {
     }
   }
 
-  async function createStock() {
+  async function createStock(symbol) {
     try {
-      console.log("Trying ...", search);
       const temp = await API.graphql(
         graphqlOperation(AddStock, {
-          symbol: search,
+          symbol: symbol,
         })
       );
       setStocks([...stocks, temp.data.addStock]);
-      setSearch("");
     } catch (err) {
       console.log("error creating stock", err);
     }
@@ -59,7 +56,7 @@ const IndexPage = () => {
       );
       let newStocks = [...stocks];
       newStocks[stockIndex] = update.data.updateStockData;
-      setStocks(newStocks)
+      setStocks(newStocks);
     } catch (err) {
       console.log("error updating stock", err);
     }
@@ -84,26 +81,11 @@ const IndexPage = () => {
 
   return (
     <Layout>
-      <div>
-        <Box align="center">
-          <Form
-            value={search}
-            onChange={({ symbol }) => setSearch(symbol)}
-            onReset={() => setSearch("")}
-            onSubmit={({ value }) => {
-              createStock(search);
-            }}
-          >
-            <FormField name="symbol" htmlFor="text-input-id" label="Symbol">
-              <TextInput id="text-input-id" name="symbol" value={search} />
-            </FormField>
-            <Box direction="row" gap="medium">
-              <Button type="submit" primary label="Submit" />
-              <Button type="reset" label="Reset" />
-            </Box>
-          </Form>
+      <Box direction="row-responsive">
+        <Box>
+          <StockSearch createStock={createStock} />
         </Box>
-        <Box pad="large">
+        <Box fill pad="small">
           <Grid columns="medium" gap="medium">
             {stocks.map((stock) => (
               <StockCard
@@ -115,7 +97,7 @@ const IndexPage = () => {
             ))}
           </Grid>
         </Box>
-      </div>
+      </Box>
     </Layout>
   );
 };

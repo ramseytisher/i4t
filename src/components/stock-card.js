@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Card,
@@ -9,7 +9,7 @@ import {
   Text,
   Layer,
 } from "grommet";
-import { Trash, DocumentTest, Update, Code } from "grommet-icons";
+import { Trash, Update, } from "grommet-icons";
 
 const formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
