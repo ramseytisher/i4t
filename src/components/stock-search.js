@@ -57,7 +57,7 @@ const StockSearch = ({createStock}) => {
           full="vertical"
         >
           <Box width="large">
-            <Box direction="row" pad="small" gap="large">
+            <Box direction="row" gap="large" margin="small">
               <Button
                 icon={<LinkPrevious />}
                 onClick={() => {
@@ -69,8 +69,7 @@ const StockSearch = ({createStock}) => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 icon={<Search />}
-                placeholder="Find a stock ..."
-                reverse
+                placeholder="Search stocks"
               />
             </Box>
             <Box flex overflow="auto" pad="small">
