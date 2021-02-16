@@ -9,7 +9,7 @@ import {
   Text,
   Layer,
 } from "grommet";
-import { Trash, Update, } from "grommet-icons";
+import { Trash, Update } from "grommet-icons";
 
 const formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -38,6 +38,12 @@ const StockCard = ({ stock, remove, update }) => {
       <CardBody pad="medium">
         <Text> Market Cap: {formatter.format(stock.marketCap)}</Text>
         <Text> Employees: {stock.employees}</Text>
+        {stock.intrinsicValue && (
+          <Text>
+            {" "}
+            Intrinsic Value (Last 3 Year): {parseFloat(stock.intrinsicValue.threeYearValue).toFixed(2)}
+          </Text>
+        )}
         <Text> PE Ratio: {stock.peratio}</Text>
         <Text> Dividend Yield: {`${stock.dividendYield}%`}</Text>
       </CardBody>

@@ -9,12 +9,19 @@ type Stock @model {
   dividendYield: String
   beta: String
   quote: Quote
+  intrinsicValue: IntrinsicValue
 }
 
 type Quote {
   price: String
   volume: String
   date: String
+}
+
+type IntrinsicValue {
+  threeYearValue: String
+  fiveYearValue: String
+  fourQuarterTrendUp: Boolean
 }
 
 type Mutation {

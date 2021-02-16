@@ -90,7 +90,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-i4t-dev-164423-deployment",
-          "S3Key": "amplify-builds/updateStockData-73745a335a6a356b4a74-build.zip"
+          "S3Key": "amplify-builds/updateStockData-3633474438696e64464b-build.zip"
         }
       }
     },

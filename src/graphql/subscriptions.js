@@ -18,6 +18,11 @@ export const onCreateStock = /* GraphQL */ `
         volume
         date
       }
+      intrinsicValue {
+        threeYearValue
+        fiveYearValue
+        fourQuarterTrendUp
+      }
       createdAt
       updatedAt
     }
@@ -40,6 +45,11 @@ export const onUpdateStock = /* GraphQL */ `
         volume
         date
       }
+      intrinsicValue {
+        threeYearValue
+        fiveYearValue
+        fourQuarterTrendUp
+      }
       createdAt
       updatedAt
     }
@@ -61,6 +71,11 @@ export const onDeleteStock = /* GraphQL */ `
         price
         volume
         date
+      }
+      intrinsicValue {
+        threeYearValue
+        fiveYearValue
+        fourQuarterTrendUp
       }
       createdAt
       updatedAt

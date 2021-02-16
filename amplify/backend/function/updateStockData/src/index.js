@@ -11,6 +11,8 @@ const gql = require("graphql-tag");
 const graphql = require("graphql");
 const { print } = graphql;
 
+const { calculateIntrinsicValue } = require("./calculations/intrinsic-value");
+
 const updateStock = gql`
   mutation updateStock($input: UpdateStockInput!) {
     updateStock(input: $input) {
@@ -25,10 +27,15 @@ const updateStock = gql`
       beta
       createdAt
       updatedAt
+      intrinsicValue {
+        threeYearValue
+        fiveYearValue
+        fourQuarterTrendUp
+      }
       quote {
-          price
-          date
-          volume
+        price
+        date
+        volume
       }
     }
   }
@@ -79,9 +86,14 @@ exports.handler = async (event) => {
       url: `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${symbol.data.data.getStock.symbol}&apikey=6GUGOE51J9KLH0O2`,
     });
 
-    let quoteData = await axios({
+    const quoteData = await axios({
       method: "get",
       url: `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol.data.data.getStock.symbol}&apikey=6GUGOE51J9KLH0O2`,
+    });
+
+    const earnings = await axios({
+      method: "get",
+      url: `https://www.alphavantage.co/query?function=EARNINGS&symbol=${symbol.data.data.getStock.symbol}&apikey=6GUGOE51J9KLH0O2`,
     });
 
     if (overviewData) {
@@ -103,10 +115,19 @@ exports.handler = async (event) => {
               dividendYield: overviewData.data.DividendYield,
               beta: overviewData.data.Beta,
               quote: {
-                  price: processQuoteData(quoteData.data).GlobalQuote["05.price"],
-                  volume: processQuoteData(quoteData.data).GlobalQuote["06.volume"],
-                  date: processQuoteData(quoteData.data).GlobalQuote["07.latesttradingday"],
-              }
+                price: processQuoteData(quoteData.data).GlobalQuote["05.price"],
+                volume: processQuoteData(quoteData.data).GlobalQuote[
+                  "06.volume"
+                ],
+                date: processQuoteData(quoteData.data).GlobalQuote[
+                  "07.latesttradingday"
+                ],
+              },
+              intrinsicValue: calculateIntrinsicValue(
+                overviewData.data.PERatio,
+                processQuoteData(quoteData.data).GlobalQuote["05.price"],
+                earnings.data
+              ),
             },
           },
         },

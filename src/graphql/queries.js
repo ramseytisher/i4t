@@ -18,6 +18,11 @@ export const getStock = /* GraphQL */ `
         volume
         date
       }
+      intrinsicValue {
+        threeYearValue
+        fiveYearValue
+        fourQuarterTrendUp
+      }
       createdAt
       updatedAt
     }
@@ -44,6 +49,11 @@ export const listStocks = /* GraphQL */ `
           price
           volume
           date
+        }
+        intrinsicValue {
+          threeYearValue
+          fiveYearValue
+          fourQuarterTrendUp
         }
         createdAt
         updatedAt
