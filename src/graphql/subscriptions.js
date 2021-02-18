@@ -23,6 +23,8 @@ export const onCreateStock = /* GraphQL */ `
         fiveYearValue
         fourQuarterTrendUp
       }
+      balance
+      earnings
       createdAt
       updatedAt
     }
@@ -50,6 +52,8 @@ export const onUpdateStock = /* GraphQL */ `
         fiveYearValue
         fourQuarterTrendUp
       }
+      balance
+      earnings
       createdAt
       updatedAt
     }
@@ -77,6 +81,8 @@ export const onDeleteStock = /* GraphQL */ `
         fiveYearValue
         fourQuarterTrendUp
       }
+      balance
+      earnings
       createdAt
       updatedAt
     }

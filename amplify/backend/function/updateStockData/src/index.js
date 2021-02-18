@@ -37,6 +37,8 @@ const updateStock = gql`
         date
         volume
       }
+      balance
+      earnings
     }
   }
 `;
@@ -96,6 +98,11 @@ exports.handler = async (event) => {
       url: `https://www.alphavantage.co/query?function=EARNINGS&symbol=${symbol.data.data.getStock.symbol}&apikey=6GUGOE51J9KLH0O2`,
     });
 
+    const balance = await axios({
+      method: "get",
+      url: `https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol=${symbol.data.data.getStock.symbol}&apikey=6GUGOE51J9KLH0O2`,
+    });
+
     if (overviewData) {
       const update = await axios({
         url: process.env.API_I4T_GRAPHQLAPIENDPOINTOUTPUT,
@@ -128,6 +135,8 @@ exports.handler = async (event) => {
                 processQuoteData(quoteData.data).GlobalQuote["05.price"],
                 earnings.data
               ),
+              balance: balance.toString(),
+              earnings: earnings.toString()
             },
           },
         },

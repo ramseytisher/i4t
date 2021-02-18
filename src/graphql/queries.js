@@ -23,6 +23,8 @@ export const getStock = /* GraphQL */ `
         fiveYearValue
         fourQuarterTrendUp
       }
+      balance
+      earnings
       createdAt
       updatedAt
     }
@@ -55,6 +57,8 @@ export const listStocks = /* GraphQL */ `
           fiveYearValue
           fourQuarterTrendUp
         }
+        balance
+        earnings
         createdAt
         updatedAt
       }

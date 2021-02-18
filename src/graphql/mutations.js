@@ -23,6 +23,8 @@ export const addStock = /* GraphQL */ `
         fiveYearValue
         fourQuarterTrendUp
       }
+      balance
+      earnings
       createdAt
       updatedAt
     }
@@ -50,6 +52,8 @@ export const updateStockData = /* GraphQL */ `
         fiveYearValue
         fourQuarterTrendUp
       }
+      balance
+      earnings
       createdAt
       updatedAt
     }
@@ -80,6 +84,8 @@ export const createStock = /* GraphQL */ `
         fiveYearValue
         fourQuarterTrendUp
       }
+      balance
+      earnings
       createdAt
       updatedAt
     }
@@ -110,6 +116,8 @@ export const updateStock = /* GraphQL */ `
         fiveYearValue
         fourQuarterTrendUp
       }
+      balance
+      earnings
       createdAt
       updatedAt
     }
@@ -140,6 +148,8 @@ export const deleteStock = /* GraphQL */ `
         fiveYearValue
         fourQuarterTrendUp
       }
+      balance
+      earnings
       createdAt
       updatedAt
     }
